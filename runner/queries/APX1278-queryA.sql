@@ -1,0 +1,4 @@
+-- APX1278-queryA
+EXPLAIN ANALYZE SELECT COUNT(*)
+FROM lineitem
+WHERE l_discount > 0.05;

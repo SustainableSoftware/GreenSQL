@@ -1,0 +1,15 @@
+# Old experiment data / plots kept locally only
+archive/
+
+# Large raw sigless traces (hundreds of MB each; exceed GitHub's 100 MB file limit)
+sigless.*.csv
+logs.zip
+
+# Raw query outputs
+runner/logs/output_logs/query_outputs/*
+
+# Build artifacts / runtime files
+runner/query_runner
+runner/.sigless.pid
+.ipynb_checkpoints/
+__pycache__/
