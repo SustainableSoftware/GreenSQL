@@ -1,0 +1,7 @@
+run_id=D4DB69C814FF7051
+run_started_utc=2026-11-06T17:28:46Z
+query_dir=queries
+query_filter=all
+perf_events=cycles,instructions,branches,branch-misses,cache-references,cache-misses,context-switches,cpu-migrations,page-faults,ref-cycles,cpu-clock,task-clock
+turbostat_columns=Core,CPU,Avg_MHz,Busy%,Bzy_MHz,TSC_MHz,IPC,CoreTmp,PkgTmp,PkgWatt,CorWatt,RAMWatt
+sample_interval_sec=1

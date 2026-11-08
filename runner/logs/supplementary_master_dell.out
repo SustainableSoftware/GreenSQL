@@ -1,0 +1,16 @@
+[2026-11-06T15:50:20Z] ===== phase planning: make run-planning-time PLANNING_TIME_LOG_FILE=logs/planning_time_dell.csv LOOPS=1 RUNS_PER_LOOP=10
+[2026-11-06T15:58:23Z] ===== phase planning finished, exit code 0
+[2026-11-06T15:58:23Z] cooling down 300s
+[2026-11-06T16:03:23Z] ===== phase output: make run-output-capture OUTPUT_CAPTURE_DIR=logs/query_outputs_dell OUTPUT_CAPTURE_SQL_DIR=logs/rewritten_queries_dell OUTPUT_CAPTURE_LOG_FILE=logs/query_output_sizes_dell.csv
+[2026-11-06T16:09:34Z] ===== phase output finished, exit code 0
+[2026-11-06T16:09:34Z] cooling down 300s
+[2026-11-06T16:14:34Z] ===== phase temp: make run-temp-controlled TEMP_CONTROL_LOG_FILE=logs/temp_controlled_runs_dell.csv TEMP_CONTROL_SAMPLE_DIR=logs/temp_controlled_samples_dell LOOPS=10
+[2026-11-06T17:23:41Z] ===== phase temp finished, exit code 0
+[2026-11-06T17:23:41Z] cooling down 300s
+[2026-11-06T17:28:41Z] ===== phase single: make run-single-core CPU_AFFINITY=0 SINGLE_CORE_LOG_FILE=logs/query_timing_single_core_dell.csv SINGLE_CORE_SAMPLE_DIR=logs/single_core_rapl_samples_dell SINGLE_CORE_DETAILED_PERF_OUTPUT_DIR=logs/single_core_perf_runs_dell SINGLE_CORE_DETAILED_PERF_LOG_FILE=logs/single_core_perf_runs_dell.csv LOOPS=10
+[2026-11-07T00:31:28Z] ===== phase single finished, exit code 0
+[2026-11-07T00:31:28Z] cooling down 300s
+[2026-11-07T00:36:28Z] ===== phase detailed: make run-perf-detailed DETAILED_PERF_OUTPUT_DIR=logs/detailed_perf_runs_dell DETAILED_PERF_LOG_FILE=logs/detailed_perf_runs_dell.csv LOOPS=10
+[2026-11-07T06:09:16Z] ===== phase detailed finished, exit code 0
+[2026-11-07T06:09:16Z] cooling down 300s
+[2026-11-07T06:14:16Z] all phases done

@@ -1,0 +1,766 @@
+gcc -O2 -Wall -Wextra -o query_runner query_runner.c rapl.c -lm
+sudo env LOOPS=10 RUNS_PER_LOOP=100 QUERY_FILTER= CPU_AFFINITY=0 LOG_FILE="logs/query_timing_single_core_thinkpad.csv" RAPL_SAMPLE_ENABLE=1 RAPL_SAMPLE_DIR="logs/single_core_rapl_samples_thinkpad" RAPL_SAMPLE_INTERVAL_MS=100 RAPL_SAMPLE_EVENTS="power/energy-pkg/,power/energy-cores/,power/energy-gpu/,power/energy-ram/" DETAILED_PERF_ENABLE=1 DETAILED_PERF_OUTPUT_DIR="logs/single_core_perf_runs_thinkpad" DETAILED_PERF_LOG_FILE="logs/single_core_perf_runs_thinkpad.csv" DETAILED_PERF_INTERVAL_SEC=1 ./query_runner
+Pinned runner and child processes to logical CPU 0
+Pinning PostgreSQL to logical CPU 0 and restarting...
+Using taskset to pin postgres processes to CPU 0...
+  pid 15820's current affinity list: 0-3
+  pid 15820's new affinity list: 0
+Verifying affinity of all postgres processes:
+pid 15804's current affinity list: 0-3
+pid 15812's current affinity list: 0-3
+pid 15813's current affinity list: 0-3
+pid 15815's current affinity list: 0-3
+pid 15817's current affinity list: 0-3
+pid 15818's current affinity list: 0-3
+pid 15819's current affinity list: 0-3
+pid 15820's current affinity list: 0
+pid 15821's current affinity list: 0-3
+pid 15822's current affinity list: 0-3
+pid 15823's current affinity list: 0-3
+pid 15825's current affinity list: 0-3
+pid 15826's current affinity list: 0-3
+pid 15827's current affinity list: 0-3
+pid 15828's current affinity list: 0-3
+pid 15829's current affinity list: 0-3
+pid 15830's current affinity list: 0-3
+pid 15831's current affinity list: 0-3
+pid 15832's current affinity list: 0-3
+pid 15834's current affinity list: 0-3
+pid 15835's current affinity list: 0-3
+pid 15836's current affinity list: 0-3
+pid 15883's current affinity list: 0
+pid 15885's current affinity list: 0
+PostgreSQL processes pinning complete (verification code: 0)
+PostgreSQL pinned and restarted on CPU 0
+Detailed PERF mode enabled. Runs per loop follow RUNS=100 with continuous interval sampling.
+Detailed PERF outputs in logs/single_core_perf_runs_thinkpad
+Detailed turbostat columns: Core,CPU,Avg_MHz,Busy%,Bzy_MHz,TSC_MHz,IPC,CoreTmp,PkgTmp,PkgWatt,CorWatt,RAMWatt
+RAPL interval sampling enabled (normal mode).
+RAPL sample interval: 100 ms
+RAPL sample outputs in logs/single_core_rapl_samples_thinkpad
+Running APX1090-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 120.166944 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 119.850133 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 119.364885 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 119.248059 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 118.955837 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 118.591288 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 118.775610 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 118.558474 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 118.663800 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 118.806746 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1190.981774 sec (failures: 0)
+
+Running APX1090-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 119.813691 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 119.794923 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 119.712492 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 119.881911 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 119.879887 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 119.789253 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 119.861660 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 119.857867 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 119.714186 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 119.787575 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1198.093446 sec (failures: 0)
+
+Running APX1092-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 322.832540 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 322.949567 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 322.986887 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 322.922291 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 322.754730 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 322.765794 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 322.876934 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 322.846481 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 322.764267 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 322.844561 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 3228.544053 sec (failures: 0)
+
+Running APX1092-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 322.835610 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 322.926456 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 322.904068 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 322.947582 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 323.254739 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 322.980556 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 322.893905 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 323.130061 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 323.017248 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 323.101869 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 3229.992095 sec (failures: 0)
+
+Running APX1130-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 203.993598 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 204.008217 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 204.273839 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 204.144474 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 205.371107 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 204.056167 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 204.148589 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 204.061926 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 204.135385 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 204.011550 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2042.204853 sec (failures: 0)
+
+Running APX1130-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 243.341246 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 243.371514 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 243.367490 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 243.386231 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 243.342512 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 243.512244 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 243.124598 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 243.308529 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 243.494891 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 243.450250 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2433.699503 sec (failures: 0)
+
+Running APX1145-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 40.973956 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 39.835835 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 39.565901 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 39.606081 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 39.651483 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 39.656728 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 39.693845 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 39.685978 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 39.648882 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 39.686695 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 398.005384 sec (failures: 0)
+
+Running APX1145-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 9.165916 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 9.136500 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 9.131083 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 9.119345 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 9.093960 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 9.099614 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 9.104798 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 9.110724 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 9.087252 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 9.095609 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 91.144802 sec (failures: 0)
+
+Running APX1173-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 209.623739 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 209.177809 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 208.522447 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 207.923738 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 207.500171 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 207.365624 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 207.563923 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 207.393550 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 207.511384 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 207.496844 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2080.079229 sec (failures: 0)
+
+Running APX1173-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 206.360087 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 206.395697 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 206.465035 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 206.334500 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 206.312164 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 206.323235 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 206.316773 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 206.245075 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 206.374886 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 206.470788 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2063.598240 sec (failures: 0)
+
+Running APX1186-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 138.675817 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 138.576986 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 138.411799 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 138.442827 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 138.695832 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 138.452748 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 138.727694 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 138.499182 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 138.411108 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 138.636163 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1385.530156 sec (failures: 0)
+
+Running APX1186-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 146.913159 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 147.223976 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 147.174103 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 147.257000 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 147.053142 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 147.284542 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 147.414324 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 147.367967 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 147.251689 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 147.416646 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1472.356549 sec (failures: 0)
+
+Running APX1225-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 99.955381 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 98.555071 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 98.402662 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 98.359338 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 98.388505 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 98.249894 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 98.330207 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 98.222216 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 98.296931 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 98.476649 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 985.236854 sec (failures: 0)
+
+Running APX1225-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 11.075845 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 11.084595 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 11.078019 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 11.066228 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 11.066952 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 11.070790 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 11.072010 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 11.090667 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 11.066311 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 11.061057 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 110.732474 sec (failures: 0)
+
+Running APX1278-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 163.376077 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 162.660318 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 162.578409 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 162.603846 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 162.661142 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 162.494028 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 162.623314 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 162.650104 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 162.924773 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 162.791974 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1627.363985 sec (failures: 0)
+
+Running APX1278-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 5.935833 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 5.936458 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 5.928887 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 5.951019 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 5.928411 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 5.942837 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 5.937448 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 5.953022 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 5.963322 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 5.957547 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 59.434784 sec (failures: 0)
+
+Running PE002-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 10.330798 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 10.014432 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 9.895041 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 9.965688 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 9.976830 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 9.966153 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 9.968312 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 9.970818 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 9.972243 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 9.968104 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 100.028419 sec (failures: 0)
+
+Running PE002-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 9.974522 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 9.969144 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 9.975527 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 9.970928 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 9.960703 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 9.972276 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 9.963632 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 9.967760 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 9.972866 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 9.983607 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 99.710964 sec (failures: 0)
+
+Running PE017-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 404.252157 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 403.617967 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 403.686374 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 403.861068 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 403.790049 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 403.668857 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 403.601210 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 404.069983 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 403.723529 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 403.912665 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 4038.183860 sec (failures: 0)
+
+Running PE017-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 138.286456 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 138.246205 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 138.133225 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 138.290777 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 138.075746 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 138.230332 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 138.204052 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 137.749562 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 137.999104 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 138.181583 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1381.397041 sec (failures: 0)
+
+Running PE019-queryA.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 52.876922 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 52.191062 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 51.772414 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 51.463924 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 51.373787 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 51.353791 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 51.382920 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 51.390385 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 51.341093 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 51.313618 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 516.459916 sec (failures: 0)
+
+Running PE019-queryB.sql  (100 runs x 10 loops)
+  loop 1/10 completed 100/100
+  loop 1/10 total time: 51.048110 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 2/10 completed 100/100
+  loop 2/10 total time: 51.251826 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 3/10 completed 100/100
+  loop 3/10 total time: 51.075507 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 4/10 completed 100/100
+  loop 4/10 total time: 51.177612 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 5/10 completed 100/100
+  loop 5/10 total time: 51.237873 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 6/10 completed 100/100
+  loop 6/10 total time: 51.268740 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 7/10 completed 100/100
+  loop 7/10 total time: 51.189461 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 8/10 completed 100/100
+  loop 8/10 total time: 51.110530 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 9/10 completed 100/100
+  loop 9/10 total time: 51.264036 sec (failures: 0)
+  pausing 15 seconds before next set...
+  loop 10/10 completed 100/100
+  loop 10/10 total time: 51.254419 sec (failures: 0)
+  Aggregate total time: 511.878112 sec (failures: 0)
+
+Restoring PostgreSQL to use all CPUs...

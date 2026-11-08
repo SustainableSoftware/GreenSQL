@@ -1,0 +1,135 @@
+gcc -O2 -Wall -Wextra -o query_runner query_runner.c rapl.c -lm
+sudo env OUTPUT_CAPTURE_ENABLE=1 OUTPUT_CAPTURE_DIR="logs/query_outputs_thinkpad" OUTPUT_CAPTURE_SQL_DIR="logs/rewritten_queries_thinkpad" OUTPUT_CAPTURE_LOG_FILE="logs/query_output_sizes_thinkpad.csv" ./query_runner
+Output capture mode enabled. Forcing runs_per_loop=1 (RUNS=100 ignored).
+Capture outputs in logs/query_outputs_thinkpad
+Running APX1090-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 7.830406 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 7.830406 sec (failures: 0)
+
+Running APX1090-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 2.873255 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2.873255 sec (failures: 0)
+
+Running APX1092-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 1.337874 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1.337874 sec (failures: 0)
+
+Running APX1092-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 1.347101 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1.347101 sec (failures: 0)
+
+Running APX1130-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 10.066236 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 10.066236 sec (failures: 0)
+
+Running APX1130-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 10.375889 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 10.375889 sec (failures: 0)
+
+Running APX1145-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.246847 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.246847 sec (failures: 0)
+
+Running APX1145-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.168899 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.168899 sec (failures: 0)
+
+Running APX1173-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 13.184439 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 13.184439 sec (failures: 0)
+
+Running APX1173-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 12.930247 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 12.930247 sec (failures: 0)
+
+Running APX1186-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 1.479321 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 1.479321 sec (failures: 0)
+
+Running APX1186-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.731824 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.731824 sec (failures: 0)
+
+Running APX1225-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.524506 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.524506 sec (failures: 0)
+
+Running APX1225-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.165465 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.165465 sec (failures: 0)
+
+Running APX1278-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.750312 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.750312 sec (failures: 0)
+
+Running APX1278-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.067807 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.067807 sec (failures: 0)
+
+Running PE002-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.465282 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.465282 sec (failures: 0)
+
+Running PE002-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.476911 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.476911 sec (failures: 0)
+
+Running PE017-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 4.309831 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 4.309831 sec (failures: 0)
+
+Running PE017-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 2.191835 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 2.191835 sec (failures: 0)
+
+Running PE019-queryA.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.922574 sec (failures: 0)
+  pausing 15 seconds before next set...
+  Aggregate total time: 0.922574 sec (failures: 0)
+
+Running PE019-queryB.sql  (1 runs x 1 loops)
+  loop 1/1 completed 1/1
+  loop 1/1 total time: 0.937191 sec (failures: 0)
+  Aggregate total time: 0.937191 sec (failures: 0)
+

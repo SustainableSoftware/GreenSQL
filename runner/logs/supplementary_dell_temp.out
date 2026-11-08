@@ -1,0 +1,512 @@
+gcc -O2 -Wall -Wextra -o query_runner query_runner.c rapl.c -lm
+sudo env TEMP_CONTROL_ENABLE=1 TEMP_CONTROL_LOG_FILE="logs/temp_controlled_runs_dell.csv" TEMP_CONTROL_SAMPLE_DIR="logs/temp_controlled_samples_dell" TEMP_CONTROL_THRESHOLD_C=40 TEMP_CONTROL_MIN_PAUSE_SEC=15 TEMP_CONTROL_RAPL_INTERVAL_MS=1 TEMP_CONTROL_RAPL_EVENTS="power/energy-pkg/,power/energy-cores/,power/energy-gpu/,power/energy-ram/" LOOPS=10 RUNS_PER_LOOP=1 ./query_runner
+Temp-controlled mode enabled. Runs per loop forced to 1.
+Cooling threshold: 40.0 C, minimum pause: 15 sec
+Temp-control samples in logs/temp_controlled_samples_dell
+Initial package temperature: 35.00 C
+Running APX1090-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.864199 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.874762 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.861282 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.864226 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.866096 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.866583 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.900384 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.860868 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.868437 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.861928 sec (failures: 0)
+  Aggregate total time: 8.688765 sec (failures: 0)
+
+Running APX1090-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.909918 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.864435 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.869031 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.866866 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.865549 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.865427 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.863282 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.910791 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.904765 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.909325 sec (failures: 0)
+  Aggregate total time: 8.829388 sec (failures: 0)
+
+Running APX1092-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.969490 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.964636 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.962910 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.951409 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.960253 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.967137 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.965587 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.973048 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.967309 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.969028 sec (failures: 0)
+  Aggregate total time: 9.650806 sec (failures: 0)
+
+Running APX1092-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.968382 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.974838 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.996850 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.973192 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.948824 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.968896 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.966802 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.947543 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.967547 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.961515 sec (failures: 0)
+  Aggregate total time: 9.674387 sec (failures: 0)
+
+Running APX1130-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.478890 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.468557 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.471444 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.471158 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.466002 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.467666 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.461917 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.467089 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.464913 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.472425 sec (failures: 0)
+  Aggregate total time: 14.690061 sec (failures: 0)
+
+Running APX1130-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.780886 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.799919 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.773526 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.775543 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.783327 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.779454 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.775908 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.776089 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.770535 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.775087 sec (failures: 0)
+  Aggregate total time: 17.790274 sec (failures: 0)
+
+Running APX1145-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.156391 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.159452 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.157407 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.153618 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.157912 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.155921 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.155244 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.159101 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.158950 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.158835 sec (failures: 0)
+  Aggregate total time: 1.572831 sec (failures: 0)
+
+Running APX1145-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.098827 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.087027 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.075698 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.088783 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.071645 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.082859 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.089528 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.084806 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.088935 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.083167 sec (failures: 0)
+  Aggregate total time: 0.851276 sec (failures: 0)
+
+Running APX1173-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.513126 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.507817 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.515837 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.509363 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.528840 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.510158 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.508640 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.516038 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.514053 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.509144 sec (failures: 0)
+  Aggregate total time: 15.133016 sec (failures: 0)
+
+Running APX1173-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.530516 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.535058 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.541634 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.528839 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.541613 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.538098 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.526602 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.560054 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.535028 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.542130 sec (failures: 0)
+  Aggregate total time: 15.379572 sec (failures: 0)
+
+Running APX1186-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.012266 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.010667 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.005184 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.007000 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.006205 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.023813 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.008552 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.012564 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.006551 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.013135 sec (failures: 0)
+  Aggregate total time: 10.105934 sec (failures: 0)
+
+Running APX1186-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.425364 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.445795 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.425196 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.423175 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.422967 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.424070 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.425932 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.439436 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.415917 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.423028 sec (failures: 0)
+  Aggregate total time: 4.270881 sec (failures: 0)
+
+Running APX1225-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.321421 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.315201 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.310420 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.310790 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.312844 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.314986 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.322677 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.317066 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.312120 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.314717 sec (failures: 0)
+  Aggregate total time: 3.152243 sec (failures: 0)
+
+Running APX1225-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.105606 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.108818 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.101369 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.107871 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.102186 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.102654 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.107204 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.108483 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.105256 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.103066 sec (failures: 0)
+  Aggregate total time: 1.052513 sec (failures: 0)
+
+Running APX1278-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.452434 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.458416 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.454153 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.453531 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.466635 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.455117 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.456686 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.448968 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.455037 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.455995 sec (failures: 0)
+  Aggregate total time: 4.556972 sec (failures: 0)
+
+Running APX1278-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.069609 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.066437 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.069420 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.067222 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.071548 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.067828 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.063536 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.068448 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.067896 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.069634 sec (failures: 0)
+  Aggregate total time: 0.681580 sec (failures: 0)
+
+Running PE002-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.101314 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.097592 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.101841 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.099727 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.102183 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.098436 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.099229 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.155057 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.095753 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.098750 sec (failures: 0)
+  Aggregate total time: 1.049883 sec (failures: 0)
+
+Running PE002-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.100510 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.100674 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.122179 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.098916 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.094963 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.099499 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.097679 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.089405 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.099436 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.096501 sec (failures: 0)
+  Aggregate total time: 0.999762 sec (failures: 0)
+
+Running PE017-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 2.615497 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 2.629165 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 2.611182 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 2.640239 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 2.624644 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 2.623705 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 2.602105 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 2.616747 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 2.625137 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 2.617544 sec (failures: 0)
+  Aggregate total time: 26.205966 sec (failures: 0)
+
+Running PE017-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 1.013310 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 1.008870 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 1.002193 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 1.010271 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 1.057752 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 1.024495 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 1.008422 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 1.056529 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 1.009222 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 1.007669 sec (failures: 0)
+  Aggregate total time: 10.198732 sec (failures: 0)
+
+Running PE019-queryA.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.411326 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.408413 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.406374 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.418406 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.392013 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.399173 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.396184 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.392773 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.397093 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.410522 sec (failures: 0)
+  Aggregate total time: 4.032276 sec (failures: 0)
+
+Running PE019-queryB.sql  (1 runs x 10 loops)
+  loop 1/10 completed 1/1
+  loop 1/10 total time: 0.395057 sec (failures: 0)
+  loop 2/10 completed 1/1
+  loop 2/10 total time: 0.454487 sec (failures: 0)
+  loop 3/10 completed 1/1
+  loop 3/10 total time: 0.399694 sec (failures: 0)
+  loop 4/10 completed 1/1
+  loop 4/10 total time: 0.386285 sec (failures: 0)
+  loop 5/10 completed 1/1
+  loop 5/10 total time: 0.387107 sec (failures: 0)
+  loop 6/10 completed 1/1
+  loop 6/10 total time: 0.394611 sec (failures: 0)
+  loop 7/10 completed 1/1
+  loop 7/10 total time: 0.396152 sec (failures: 0)
+  loop 8/10 completed 1/1
+  loop 8/10 total time: 0.397275 sec (failures: 0)
+  loop 9/10 completed 1/1
+  loop 9/10 total time: 0.421056 sec (failures: 0)
+  loop 10/10 completed 1/1
+  loop 10/10 total time: 0.398449 sec (failures: 0)
+  Aggregate total time: 4.030171 sec (failures: 0)
+
