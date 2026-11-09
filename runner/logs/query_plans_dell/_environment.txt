@@ -1,0 +1,25 @@
+machine: dell
+date: 2026-11-09T12:28:01Z
+nproc: 8
+lscpu: Model name: Intel(R) Core(TM) i5-8350U CPU @ 1.70GHz
+
+> SELECT version();
+PostgreSQL 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit
+
+> SHOW max_parallel_workers_per_gather;
+2
+
+> SHOW max_parallel_workers;
+8
+
+> SHOW shared_buffers;
+128MB
+
+> SHOW work_mem;
+4MB
+
+> SHOW effective_cache_size;
+4GB
+
+> SHOW random_page_cost;
+4

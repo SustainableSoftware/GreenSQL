@@ -1,0 +1,17 @@
+                                                                                                      QUERY PLAN                                                                                                      
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.lineitem  (cost=0.00..187580.42 rows=681417 width=117) (actual time=3.953..769.308 rows=686842 loops=1)
+   Output: l_orderkey, l_partkey, l_suppkey, l_linenumber, l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate, l_commitdate, l_receiptdate, l_shipinstruct, l_shipmode, l_comment
+   Filter: (lineitem.l_shipdate >= '1998-01-01'::date)
+   Rows Removed by Filter: 5314373
+   Buffers: shared hit=64 read=112497
+ Planning:
+   Buffers: shared hit=105
+ Planning Time: 0.274 ms
+ JIT:
+   Functions: 2
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.229 ms, Inlining 0.000 ms, Optimization 0.274 ms, Emission 3.640 ms, Total 4.143 ms
+ Execution Time: 803.163 ms
+(13 rows)
+

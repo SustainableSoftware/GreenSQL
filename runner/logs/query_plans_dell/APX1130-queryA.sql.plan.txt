@@ -1,0 +1,17 @@
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.lineitem  (cost=0.00..202584.31 rows=4392749 width=23) (actual time=8.020..1287.068 rows=4286695 loops=1)
+   Output: l_orderkey, l_shipmode, l_extendedprice
+   Filter: ((lineitem.l_shipmode <> 'SHIP'::bpchar) AND (lineitem.l_shipmode <> 'RAIL'::bpchar))
+   Rows Removed by Filter: 1714520
+   Buffers: shared hit=576 read=111985
+ Planning:
+   Buffers: shared hit=60
+ Planning Time: 0.221 ms
+ JIT:
+   Functions: 4
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.479 ms, Inlining 0.000 ms, Optimization 0.389 ms, Emission 7.567 ms, Total 8.435 ms
+ Execution Time: 1420.839 ms
+(13 rows)
+

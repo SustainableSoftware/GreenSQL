@@ -1,0 +1,17 @@
+                                                           QUERY PLAN                                                           
+--------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.lineitem  (cost=0.00..1687968.93 rows=2000518 width=12) (actual time=114.626..2519.881 rows=667429 loops=1)
+   Output: l_orderkey, l_extendedprice
+   Filter: (lineitem.l_tax > get_tax_rate())
+   Rows Removed by Filter: 5333786
+   Buffers: shared hit=3157 read=109404
+ Planning:
+   Buffers: shared hit=57
+ Planning Time: 0.207 ms
+ JIT:
+   Functions: 4
+   Options: Inlining true, Optimization true, Expressions true, Deforming true
+   Timing: Generation 0.300 ms, Inlining 56.685 ms, Optimization 35.095 ms, Emission 22.708 ms, Total 114.787 ms
+ Execution Time: 2554.391 ms
+(13 rows)
+

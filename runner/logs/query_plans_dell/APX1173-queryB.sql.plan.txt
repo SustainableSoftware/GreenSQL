@@ -1,0 +1,28 @@
+                                                                                                                         QUERY PLAN                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Anti Join  (cost=359.14..243959.50 rows=5466816 width=20) (actual time=8.963..1357.247 rows=5469120 loops=1)
+   Output: l.l_orderkey, l.l_partkey, l.l_suppkey, l.l_extendedprice
+   Hash Cond: (l.l_suppkey = s.s_suppkey)
+   Buffers: shared hit=991 read=111793
+   ->  Seq Scan on public.lineitem l  (cost=0.00..172576.54 rows=6001554 width=20) (actual time=0.041..527.657 rows=6001215 loops=1)
+         Output: l.l_orderkey, l.l_partkey, l.l_suppkey, l.l_linenumber, l.l_quantity, l.l_extendedprice, l.l_discount, l.l_tax, l.l_returnflag, l.l_linestatus, l.l_shipdate, l.l_commitdate, l.l_receiptdate, l.l_shipinstruct, l.l_shipmode, l.l_comment
+         Buffers: shared hit=768 read=111793
+   ->  Hash  (cost=348.00..348.00 rows=891 width=4) (actual time=8.897..8.899 rows=886 loops=1)
+         Output: s.s_suppkey
+         Buckets: 1024  Batches: 1  Memory Usage: 40kB
+         Buffers: shared hit=223
+         ->  Seq Scan on public.supplier s  (cost=0.00..348.00 rows=891 width=4) (actual time=7.283..8.792 rows=886 loops=1)
+               Output: s.s_suppkey
+               Filter: (s.s_acctbal < '0'::numeric)
+               Rows Removed by Filter: 9114
+               Buffers: shared hit=223
+ Planning:
+   Buffers: shared hit=158
+ Planning Time: 0.466 ms
+ JIT:
+   Functions: 12
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.516 ms, Inlining 0.000 ms, Optimization 0.361 ms, Emission 6.917 ms, Total 7.793 ms
+ Execution Time: 1524.567 ms
+(24 rows)
+

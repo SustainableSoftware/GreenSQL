@@ -1,0 +1,44 @@
+                                                                                                               QUERY PLAN                                                                                                               
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=147668.38..147668.39 rows=1 width=8) (actual time=376.688..380.592 rows=1 loops=1)
+   Output: count(*)
+   Buffers: shared hit=3028 read=109533
+   ->  Gather  (cost=147668.16..147668.37 rows=2 width=8) (actual time=376.552..380.576 rows=3 loops=1)
+         Output: (PARTIAL count(*))
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=3028 read=109533
+         ->  Partial Aggregate  (cost=146668.16..146668.17 rows=1 width=8) (actual time=364.704..364.705 rows=1 loops=3)
+               Output: PARTIAL count(*)
+               Buffers: shared hit=3028 read=109533
+               Worker 0:  actual time=358.929..358.930 rows=1 loops=1
+                 JIT:
+                   Functions: 4
+                   Options: Inlining false, Optimization false, Expressions true, Deforming true
+                   Timing: Generation 0.332 ms, Inlining 0.000 ms, Optimization 0.240 ms, Emission 3.750 ms, Total 4.321 ms
+                 Buffers: shared hit=1003 read=35792
+               Worker 1:  actual time=358.927..358.928 rows=1 loops=1
+                 JIT:
+                   Functions: 4
+                   Options: Inlining false, Optimization false, Expressions true, Deforming true
+                   Timing: Generation 0.332 ms, Inlining 0.000 ms, Optimization 0.239 ms, Emission 3.752 ms, Total 4.324 ms
+                 Buffers: shared hit=1025 read=35912
+               ->  Parallel Seq Scan on public.lineitem  (cost=0.00..143819.09 rows=1139628 width=0) (actual time=4.314..328.173 rows=909030 loops=3)
+                     Output: l_orderkey, l_partkey, l_suppkey, l_linenumber, l_quantity, l_extendedprice, l_discount, l_tax, l_returnflag, l_linestatus, l_shipdate, l_commitdate, l_receiptdate, l_shipinstruct, l_shipmode, l_comment
+                     Filter: (lineitem.l_discount > 0.05)
+                     Rows Removed by Filter: 1091375
+                     Buffers: shared hit=3028 read=109533
+                     Worker 0:  actual time=3.998..322.891 rows=891338 loops=1
+                       Buffers: shared hit=1003 read=35792
+                     Worker 1:  actual time=3.997..322.925 rows=894934 loops=1
+                       Buffers: shared hit=1025 read=35912
+ Planning:
+   Buffers: shared hit=60
+ Planning Time: 0.250 ms
+ JIT:
+   Functions: 14
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.996 ms, Inlining 0.000 ms, Optimization 0.742 ms, Emission 12.178 ms, Total 13.916 ms
+ Execution Time: 395.119 ms
+(40 rows)
+

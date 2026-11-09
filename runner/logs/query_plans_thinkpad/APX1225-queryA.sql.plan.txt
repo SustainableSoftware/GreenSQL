@@ -1,0 +1,57 @@
+                                                                              QUERY PLAN                                                                              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize GroupAggregate  (cost=154547.39..167652.57 rows=94929 width=36) (actual time=379.457..424.732 rows=25001 loops=1)
+   Output: l_orderkey, sum(l_extendedprice)
+   Group Key: lineitem2_unindexed.l_orderkey
+   Buffers: shared hit=112 read=112576
+   ->  Gather Merge  (cost=154547.39..165793.48 rows=89664 width=36) (actual time=379.441..402.081 rows=25019 loops=1)
+         Output: l_orderkey, (PARTIAL sum(l_extendedprice))
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=112 read=112576
+         ->  Partial GroupAggregate  (cost=153547.37..154444.01 rows=44832 width=36) (actual time=356.452..370.486 rows=8340 loops=3)
+               Output: l_orderkey, PARTIAL sum(l_extendedprice)
+               Group Key: lineitem2_unindexed.l_orderkey
+               Buffers: shared hit=112 read=112576
+               Worker 0:  actual time=339.405..346.305 rows=2557 loops=1
+                 JIT:
+                   Functions: 9
+                   Options: Inlining false, Optimization false, Expressions true, Deforming true
+                   Timing: Generation 1.176 ms, Inlining 0.000 ms, Optimization 0.514 ms, Emission 10.520 ms, Total 12.210 ms
+                 Buffers: shared hit=56 read=28715
+               Worker 1:  actual time=350.920..371.278 rows=13672 loops=1
+                 JIT:
+                   Functions: 9
+                   Options: Inlining false, Optimization false, Expressions true, Deforming true
+                   Timing: Generation 0.695 ms, Inlining 0.000 ms, Optimization 0.368 ms, Emission 7.267 ms, Total 8.331 ms
+                 Buffers: shared hit=56 read=52947
+               ->  Sort  (cost=153547.37..153659.45 rows=44832 width=12) (actual time=356.417..358.349 rows=33327 loops=3)
+                     Output: l_orderkey, l_extendedprice
+                     Sort Key: lineitem2_unindexed.l_orderkey
+                     Sort Method: quicksort  Memory: 2909kB
+                     Buffers: shared hit=112 read=112576
+                     Worker 0:  actual time=339.355..340.307 rows=10234 loops=1
+                       Sort Method: quicksort  Memory: 784kB
+                       Buffers: shared hit=56 read=28715
+                     Worker 1:  actual time=350.889..353.717 rows=54601 loops=1
+                       Sort Method: quicksort  Memory: 3669kB
+                       Buffers: shared hit=56 read=52947
+                     ->  Parallel Seq Scan on public.lineitem2_unindexed  (cost=0.00..150083.59 rows=44832 width=12) (actual time=11.792..347.423 rows=33327 loops=3)
+                           Output: l_orderkey, l_extendedprice
+                           Filter: ((lineitem2_unindexed.l_orderkey >= 100000) AND (lineitem2_unindexed.l_orderkey <= 200000))
+                           Rows Removed by Filter: 1967078
+                           Buffers: shared read=112576
+                           Worker 0:  actual time=11.060..335.595 rows=10234 loops=1
+                             Buffers: shared read=28715
+                           Worker 1:  actual time=8.157..340.857 rows=54601 loops=1
+                             Buffers: shared read=52947
+ Planning:
+   Buffers: shared hit=59 read=1
+ Planning Time: 0.328 ms
+ JIT:
+   Functions: 30
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 2.605 ms, Inlining 0.000 ms, Optimization 1.402 ms, Emission 32.863 ms, Total 36.870 ms
+ Execution Time: 447.360 ms
+(53 rows)
+

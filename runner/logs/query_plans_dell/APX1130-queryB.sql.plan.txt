@@ -1,0 +1,17 @@
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.lineitem  (cost=0.00..210086.25 rows=4267505 width=23) (actual time=6.536..1605.666 rows=4286695 loops=1)
+   Output: l_orderkey, l_shipmode, l_extendedprice
+   Filter: (lineitem.l_shipmode = ANY ('{AIR,FOB,MAIL,"REG AIR",TRUCK}'::bpchar[]))
+   Rows Removed by Filter: 1714520
+   Buffers: shared hit=640 read=111921
+ Planning:
+   Buffers: shared hit=91
+ Planning Time: 0.292 ms
+ JIT:
+   Functions: 4
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.450 ms, Inlining 0.000 ms, Optimization 0.412 ms, Emission 6.076 ms, Total 6.938 ms
+ Execution Time: 1739.323 ms
+(13 rows)
+

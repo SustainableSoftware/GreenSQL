@@ -1,0 +1,22 @@
+                                                            QUERY PLAN                                                            
+----------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1000.00..36438.20 rows=14897 width=20) (actual time=0.308..87.466 rows=14915 loops=1)
+   Output: o_orderkey, o_clerk
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=96 read=26040
+   ->  Parallel Seq Scan on public.orders  (cost=0.00..33948.50 rows=6207 width=20) (actual time=0.043..82.546 rows=4972 loops=3)
+         Output: o_orderkey, o_clerk
+         Filter: (orders.o_clerk ~~ '%Clerk#00000095%'::text)
+         Rows Removed by Filter: 495028
+         Buffers: shared hit=96 read=26040
+         Worker 0:  actual time=0.036..81.802 rows=4916 loops=1
+           Buffers: shared hit=30 read=8591
+         Worker 1:  actual time=0.024..81.909 rows=5047 loops=1
+           Buffers: shared hit=34 read=8621
+ Planning:
+   Buffers: shared hit=79
+ Planning Time: 0.293 ms
+ Execution Time: 87.988 ms
+(18 rows)
+

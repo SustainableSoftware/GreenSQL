@@ -1,0 +1,16 @@
+                                                            QUERY PLAN                                                             
+-----------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on public.orders  (cost=206.17..23416.05 rows=14897 width=20) (actual time=3.151..18.281 rows=14915 loops=1)
+   Output: o_orderkey, o_clerk
+   Filter: (orders.o_clerk ~~ 'Clerk#00000095%'::text)
+   Heap Blocks: exact=11403
+   Buffers: shared hit=11419
+   ->  Bitmap Index Scan on idx_orders_clerk  (cost=0.00..202.45 rows=14602 width=0) (actual time=1.707..1.707 rows=14915 loops=1)
+         Index Cond: ((orders.o_clerk ~>=~ 'Clerk#00000095'::bpchar) AND (orders.o_clerk ~<~ 'Clerk#00000096'::bpchar))
+         Buffers: shared hit=16
+ Planning:
+   Buffers: shared hit=113
+ Planning Time: 0.383 ms
+ Execution Time: 18.811 ms
+(12 rows)
+

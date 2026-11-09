@@ -1,0 +1,13 @@
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.part  (cost=0.00..6628.00 rows=159213 width=41) (actual time=0.019..28.274 rows=159526 loops=1)
+   Output: p_partkey, p_name, p_size
+   Filter: (part.p_size > 10)
+   Rows Removed by Filter: 40474
+   Buffers: shared hit=32 read=4096
+ Planning:
+   Buffers: shared hit=29
+ Planning Time: 0.183 ms
+ Execution Time: 32.750 ms
+(9 rows)
+

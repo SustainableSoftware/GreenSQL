@@ -1,0 +1,16 @@
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Result  (cost=0.07..0.08 rows=1 width=1) (actual time=0.021..0.021 rows=1 loops=1)
+   Output: $0
+   Buffers: shared hit=1
+   InitPlan 1 (returns $0)
+     ->  Seq Scan on public.lineitem  (cost=0.00..187580.42 rows=2735108 width=0) (actual time=0.019..0.020 rows=1 loops=1)
+           Filter: (lineitem.l_discount > 0.05)
+           Rows Removed by Filter: 1
+           Buffers: shared hit=1
+ Planning:
+   Buffers: shared hit=54
+ Planning Time: 0.229 ms
+ Execution Time: 0.050 ms
+(12 rows)
+

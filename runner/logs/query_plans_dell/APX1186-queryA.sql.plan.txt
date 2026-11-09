@@ -1,0 +1,24 @@
+# APX1186-queryA is a DO block (cursor loop); EXPLAIN cannot be applied to it.
+# Plan captured with session-level auto_explain (log_analyze, buffers, verbose, settings, nested statements) while running the original file.
+SET
+LOAD
+SET
+SET
+SET
+SET
+SET
+SET
+LOG:  duration: 926.963 ms  plan:
+Query Text: SELECT l_orderkey, l_extendedprice
+        FROM lineitem
+        WHERE l_extendedprice > 100000
+Seq Scan on public.lineitem  (cost=0.00..187580.42 rows=16794 width=12) (actual time=4.643..925.882 rows=4122 loops=1)
+  Output: l_orderkey, l_extendedprice
+  Filter: (lineitem.l_extendedprice > '100000'::numeric)
+  Rows Removed by Filter: 5997093
+  Buffers: shared hit=832 read=111729
+JIT:
+  Functions: 4
+  Options: Inlining false, Optimization false, Expressions true, Deforming true
+  Timing: Generation 0.271 ms, Inlining 0.000 ms, Optimization 0.289 ms, Emission 4.141 ms, Total 4.701 ms
+DO

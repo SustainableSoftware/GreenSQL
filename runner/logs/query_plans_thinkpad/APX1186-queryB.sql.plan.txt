@@ -1,0 +1,34 @@
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1000.00..146816.57 rows=19608 width=12) (actual time=10.257..653.026 rows=4122 loops=1)
+   Output: l_orderkey, l_extendedprice
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=417 read=112183
+   ->  Parallel Seq Scan on public.lineitem  (cost=0.00..143855.77 rows=8170 width=12) (actual time=8.383..626.912 rows=1374 loops=3)
+         Output: l_orderkey, l_extendedprice
+         Filter: (lineitem.l_extendedprice > '100000'::numeric)
+         Rows Removed by Filter: 1999031
+         Buffers: shared hit=417 read=112183
+         Worker 0:  actual time=8.286..611.967 rows=1018 loops=1
+           JIT:
+             Functions: 4
+             Options: Inlining false, Optimization false, Expressions true, Deforming true
+             Timing: Generation 0.708 ms, Inlining 0.000 ms, Optimization 0.447 ms, Emission 7.501 ms, Total 8.655 ms
+           Buffers: shared hit=107 read=28924
+         Worker 1:  actual time=7.029..622.102 rows=1932 loops=1
+           JIT:
+             Functions: 4
+             Options: Inlining false, Optimization false, Expressions true, Deforming true
+             Timing: Generation 0.461 ms, Inlining 0.000 ms, Optimization 0.321 ms, Emission 5.195 ms, Total 5.976 ms
+           Buffers: shared hit=202 read=52640
+ Planning:
+   Buffers: shared hit=62
+ Planning Time: 0.397 ms
+ JIT:
+   Functions: 12
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 1.534 ms, Inlining 0.000 ms, Optimization 1.172 ms, Emission 21.570 ms, Total 24.275 ms
+ Execution Time: 674.035 ms
+(30 rows)
+

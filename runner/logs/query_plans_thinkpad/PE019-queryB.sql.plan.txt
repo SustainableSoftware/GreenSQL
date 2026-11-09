@@ -1,0 +1,24 @@
+                                                               QUERY PLAN                                                               
+----------------------------------------------------------------------------------------------------------------------------------------
+ Hash Semi Join  (cost=40562.72..56302.72 rows=200000 width=41) (actual time=259.905..447.970 rows=200000 loops=1)
+   Output: p.p_partkey, p.p_name, p.p_size
+   Hash Cond: (p.p_partkey = ps.ps_partkey)
+   Buffers: shared hit=1646 read=20042, temp read=3385 written=3385
+   ->  Seq Scan on public.part p  (cost=0.00..6128.00 rows=200000 width=41) (actual time=0.029..36.293 rows=200000 loops=1)
+         Output: p.p_partkey, p.p_name, p.p_size
+         Buffers: shared hit=1613 read=2515
+   ->  Hash  (cost=27560.00..27560.00 rows=792538 width=4) (actual time=258.148..258.149 rows=791914 loops=1)
+         Output: ps.ps_partkey
+         Buckets: 262144  Batches: 8  Memory Usage: 5553kB
+         Buffers: shared hit=33 read=17527, temp written=2024
+         ->  Seq Scan on public.partsupp ps  (cost=0.00..27560.00 rows=792538 width=4) (actual time=0.023..144.821 rows=791914 loops=1)
+               Output: ps.ps_partkey
+               Filter: (ps.ps_availqty > 100)
+               Rows Removed by Filter: 8086
+               Buffers: shared hit=33 read=17527
+ Planning:
+   Buffers: shared hit=135
+ Planning Time: 0.504 ms
+ Execution Time: 455.465 ms
+(20 rows)
+

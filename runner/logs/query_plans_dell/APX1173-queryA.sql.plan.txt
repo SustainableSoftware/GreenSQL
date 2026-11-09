@@ -1,0 +1,23 @@
+                                                            QUERY PLAN                                                             
+-----------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on public.lineitem l  (cost=350.23..187930.65 rows=3000777 width=20) (actual time=10.552..1325.822 rows=5469120 loops=1)
+   Output: l.l_orderkey, l.l_partkey, l.l_suppkey, l.l_extendedprice
+   Filter: (NOT (hashed SubPlan 1))
+   Rows Removed by Filter: 532095
+   Buffers: shared hit=927 read=111857
+   SubPlan 1
+     ->  Seq Scan on public.supplier s  (cost=0.00..348.00 rows=891 width=4) (actual time=0.150..1.637 rows=886 loops=1)
+           Output: s.s_suppkey
+           Filter: (s.s_acctbal < '0'::numeric)
+           Rows Removed by Filter: 9114
+           Buffers: shared hit=223
+ Planning:
+   Buffers: shared hit=68
+ Planning Time: 0.290 ms
+ JIT:
+   Functions: 19
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.769 ms, Inlining 0.000 ms, Optimization 0.537 ms, Emission 8.196 ms, Total 9.502 ms
+ Execution Time: 1494.111 ms
+(19 rows)
+

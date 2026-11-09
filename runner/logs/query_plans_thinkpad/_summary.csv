@@ -1,0 +1,23 @@
+test_name,top_node,scans,indexes,workers_planned,workers_launched,rows_actual,planning_ms,execution_ms,buffers_shared_hit,buffers_shared_read
+APX1090-queryA.sql,Seq Scan,Seq Scan on lineitem,,0,0,686842,0.525,1091.401,0,112600
+APX1090-queryB.sql,Seq Scan,Seq Scan on lineitem,,0,0,686842,0.346,1129.299,33,112567
+APX1092-queryA.sql,Finalize GroupAggregate,Parallel Seq Scan on lineitem,,2,2,6311,0.494,1480.185,79,112535
+APX1092-queryB.sql,Finalize GroupAggregate,Parallel Seq Scan on lineitem,,2,2,6311,0.459,1473.139,175,112439
+APX1130-queryA.sql,Seq Scan,Seq Scan on lineitem,,0,0,4286695,0.276,1915.005,257,112343
+APX1130-queryB.sql,Seq Scan,Seq Scan on lineitem,,0,0,4286695,0.414,2302.528,289,112311
+APX1145-queryA.sql,Gather,Parallel Seq Scan on orders,,2,2,14915,0.441,173.117,0,26136
+APX1145-queryB.sql,Bitmap Heap Scan,Bitmap Heap Scan on orders; Bitmap Index Scan on idx_orders_clerk,idx_orders_clerk,0,0,14915,0.480,89.542,42,11377
+APX1173-queryA.sql,Seq Scan,Seq Scan on lineitem; Seq Scan on supplier,,0,0,5469120,0.382,1973.782,544,112279
+APX1173-queryB.sql,Hash Anti Join,Seq Scan on lineitem; Seq Scan on supplier,,0,0,5469120,0.578,2010.424,576,112247
+APX1186-queryA.sql,Seq Scan,Seq Scan on lineitem,,0,0,4122,,1246.374,385,112215
+APX1186-queryB.sql,Gather,Parallel Seq Scan on lineitem,,2,2,4122,0.397,674.035,417,112183
+APX1225-queryA.sql,Finalize GroupAggregate,Parallel Seq Scan on lineitem2_unindexed,,2,2,25001,0.328,447.360,112,112576
+APX1225-queryB.sql,GroupAggregate,Index Scan on lineitem,idx_lineitem_order,0,0,25001,0.382,57.771,2,2038
+APX1278-queryA.sql,Finalize Aggregate,Parallel Seq Scan on lineitem,,2,2,1,0.367,775.110,2390,110210
+APX1278-queryB.sql,Result,Seq Scan on lineitem,,0,0,1,0.286,0.072,0,1
+PE002-queryA.sql,Seq Scan,Seq Scan on part,,0,0,159526,0.230,42.960,1517,2611
+PE002-queryB.sql,Seq Scan,Seq Scan on part,,0,0,159526,0.221,43.280,1549,2579
+PE017-queryA.sql,Seq Scan,Seq Scan on lineitem,,0,0,667429,0.273,3410.599,2487,110113
+PE017-queryB.sql,Seq Scan,Seq Scan on lineitem,,0,0,667429,0.273,1268.499,2519,110081
+PE019-queryA.sql,Hash Semi Join,Seq Scan on part; Seq Scan on partsupp,,0,0,200000,0.557,456.468,1581,20107
+PE019-queryB.sql,Hash Semi Join,Seq Scan on part; Seq Scan on partsupp,,0,0,200000,0.504,455.465,1646,20042

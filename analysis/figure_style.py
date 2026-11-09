@@ -510,3 +510,136 @@ def single_loop_busy_stacked(all_cores, one_core, fam, pc_label, name):
         fig.subplots_adjust(left=.14, right=.98, top=.86, bottom=.14)
         save_svg(fig, name)
         plt.show()
+
+
+# ------------------------------------------------------------------ 9. A/B savings scatter (single column, PCs stacked)
+def _place_labels(fig, ax, pts, names, fontsize=5.0, obstacles=()):
+    """Greedy label placement: for each point try offsets on growing circles and keep the first whose text box stays inside
+    the axes and overlaps neither an earlier label nor any other marker; a thin leader line joins label and point."""
+    fig.canvas.draw()
+    rend = fig.canvas.get_renderer()
+    inv = ax.transData.inverted()
+    xy = ax.transData.transform(np.asarray(pts, dtype=float))
+    boxes = [(x - 4, y - 4, x + 4, y + 4) for x, y in xy]            # marker boxes (display px)
+    if len(obstacles):                                               # further markers to keep clear (not labelled)
+        boxes += [(x - 4, y - 4, x + 4, y + 4) for x, y in ax.transData.transform(np.asarray(obstacles, dtype=float))]
+    axbox = ax.get_window_extent(rend)
+    sc = fig.dpi / 72.0
+    angles = np.deg2rad([45, 135, 0, 180, 315, 225, 90, 270, 20, 160, 340, 200, 70, 110, 290, 250])
+
+    def clash(b, skip):
+        return any(not (b[2] < o[0] or b[0] > o[2] or b[3] < o[1] or b[1] > o[3]) for j, o in enumerate(boxes) if j != skip)
+
+    order = np.argsort(-(np.abs(xy[:, 0] - xy[:, 0].mean()) + np.abs(xy[:, 1] - xy[:, 1].mean())))   # isolated points first
+    placed = {}
+    for k in order:
+        t = ax.text(0, 0, names[k], fontsize=fontsize, color="#222", zorder=5)
+        bb = t.get_window_extent(rend)
+        w, h = bb.width, bb.height
+        best, rad = None, 0
+        for rad in (6, 10, 15, 21, 28, 36, 46):
+            for a in angles:
+                cx, cy = xy[k, 0] + rad * sc * np.cos(a) * .6, xy[k, 1] + rad * sc * np.sin(a) * .6
+                x0 = cx if np.cos(a) >= -1e-9 else cx - w
+                b = (x0, cy - h / 2, x0 + w, cy + h / 2)
+                if b[0] < axbox.x0 or b[2] > axbox.x1 or b[1] < axbox.y0 or b[3] > axbox.y1:
+                    continue
+                if clash(b, k):
+                    continue
+                best = b
+                break
+            if best:
+                break
+        if best is None:
+            best = (xy[k, 0] + 5, xy[k, 1] - h / 2, xy[k, 0] + 5 + w, xy[k, 1] + h / 2)
+        boxes.append(best)
+        placed[k] = best
+        px, py = inv.transform((best[0], (best[1] + best[3]) / 2))
+        t.set_position((px, py)); t.set_va("center"); t.set_ha("left")
+        if rad > 6:                                                       # leader line from the point to the label edge
+            ex = best[0] if best[0] > xy[k, 0] else best[2]
+            lx, ly = inv.transform((ex, (best[1] + best[3]) / 2))
+            ax.plot([pts[k][0], lx], [pts[k][1], ly], color="#888", lw=.35, zorder=2)
+
+
+def savings_scatter(stats_df, source="External", kind="pct", name=None, label_min=3.0):
+    """Time saving (x) against energy saving (y) of B relative to A, one panel per PC (stacked, shared axes, one column).
+    Marker colour = outcome of the ENERGY test (as in the forest plot: green = significant, B lower; red = significant, A
+    lower; hollow grey = not significant); marker shape = machine. kind: 'pct' | 'abs_raw' | 'abs_norm' (y divided by the
+    fitted slope so the trend lies on the 45-degree line). Points further than label_min % of the axis half-range from the
+    origin get a label (greedy placement with leader lines); the near-origin points are listed in one note."""
+    metric = {"External": "energy_external_j", "RAPL": "energy_rapl_j"}[source]
+    xl, yl = {"pct": ("Time saving (%)", "Energy saving (%)"),
+              "abs_norm": ("Time saving (s)", "Energy saving (J, ÷ fit slope)"),
+              "abs_raw": ("Time saving (s)", "Energy saving (J)")}[kind]
+    suffix = {"pct": "pct", "abs_norm": "abs", "abs_raw": "abs_raw"}[kind]
+    S, _ = _stat_lookup(stats_df)
+    rows = []
+    for pc in PCS:
+        for fam in sorted(stats_df[stats_df["pc"] == pc]["query_family"].unique()):
+            t, e = S(pc, fam, "runtime_sec"), S(pc, fam, metric)
+            if kind == "pct":
+                x = 100.0 * (t["A_mean"] - t["B_mean"]) / t["A_mean"]
+                y = 100.0 * (e["A_mean"] - e["B_mean"]) / e["A_mean"]
+            else:
+                x, y = t["A_mean"] - t["B_mean"], e["A_mean"] - e["B_mean"]
+            rows.append(dict(pc=pc, fam=fam, x=x, y=y, p=e["p_value"], chg=e["B_mean"] - e["A_mean"]))
+    d = pd.DataFrame(rows)
+    slopes = {}
+    if kind == "abs_norm":
+        for pc in PCS:
+            m = d[d.pc == pc]
+            slopes[pc] = np.polyfit(m.x, m.y, 1)[0]
+            d.loc[d.pc == pc, "y"] = m.y / slopes[pc]
+    with _style():
+        fig, axes = plt.subplots(1, 1, figsize=(COL_W, 3.3))
+        if kind == "pct":
+            v = d[["x", "y"]].to_numpy()
+            pad = .07 * (v.max() - v.min())
+            xlim = ylim = (min(v.min(), 0) - pad, v.max() + pad)      # square, zoomed to the data (0 always inside)
+        else:
+            def sym(v):
+                lo, hi = min(v.min(), 0), max(v.max(), 0)
+                pad = .07 * (hi - lo) or 1.0
+                return (lo - pad, hi + pad)
+            xlim, ylim = sym(d.x.to_numpy()), sym(d.y.to_numpy())
+            if kind == "abs_norm":
+                xlim = ylim = (min(xlim[0], ylim[0]), max(xlim[1], ylim[1]))
+        ax = axes
+        if kind in ("pct", "abs_norm"):
+            ax.plot([xlim[0], xlim[1]], [xlim[0], xlim[1]], ls="--", color=REF, lw=.6, zorder=1)
+        ax.axhline(0, color="black", lw=.5, zorder=1)
+        ax.axvline(0, color="black", lw=.5, zorder=1)
+        rtxt = []
+        for pc in PCS:
+            m = d[d.pc == pc]
+            if kind != "abs_norm":
+                a, b = np.polyfit(m.x, m.y, 1)
+                ax.plot(np.array(xlim), a * np.array(xlim) + b, color=REF, lw=.6, ls="-" if pc == "PC_1" else (0, (3, 1.5)), zorder=2)
+            for _, r in m.iterrows():
+                face, edge = outcome_style(r.chg, r.p)
+                ax.scatter(r.x, r.y, s=20, marker=PC_MARK[pc], facecolor=face, edgecolor=edge, linewidth=.7, zorder=3)
+            rtxt.append(f"{PC_NAME[pc].split()[0]}: r = {np.corrcoef(m.x, m.y)[0, 1]:.2f}" + (f", {slopes[pc]:.0f} J/s" if kind == "abs_norm" else ""))
+        ax.text(.03, .97, "\n".join(rtxt), transform=ax.transAxes, va="top", ha="left", fontsize=5.2)
+        ax.set_xlim(xlim); ax.set_ylim(ylim); ax.set_box_aspect(1)
+        ax.xaxis.set_major_locator(plt.MaxNLocator(5)); ax.yaxis.set_major_locator(plt.MaxNLocator(5))
+        ax.set_xlabel(xl); ax.set_ylabel(yl)
+        despine(ax)
+        leg = [Line2D([], [], marker="o", ls="", mfc=GREEN, mec="black", mew=.6, ms=4, label="B lower (sig.)"),
+               Line2D([], [], marker="o", ls="", mfc=RED, mec="black", mew=.6, ms=4, label="A lower (sig.)"),
+               Line2D([], [], marker="o", ls="", mfc="white", mec=GREY, mew=.6, ms=4, label="not significant"),
+               Line2D([], [], marker="o", ls="", mfc="#bbbbbb", mec="black", mew=.6, ms=4, label="PC1"),
+               Line2D([], [], marker="s", ls="", mfc="#bbbbbb", mec="black", mew=.6, ms=4, label="PC2")]
+        fig.legend(handles=leg, loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(.5, 1.0), handletextpad=.1, columnspacing=.7, fontsize=5.0)
+        fig.tight_layout(rect=[0, 0, 1, .93])
+        # one label per guideline (position = mean of the two PCs); near-origin guidelines are listed in one note
+        g = d.groupby("fam")[["x", "y"]].mean()
+        far = (g.x.abs() >= label_min * (xlim[1] - xlim[0]) / 200) | (g.y.abs() >= label_min * (ylim[1] - ylim[0]) / 200)
+        if far.any():
+            _place_labels(fig, ax, list(zip(g[far].x, g[far].y)), list(g[far].index), obstacles=list(zip(d.x, d.y)))
+        if (~far).any():
+            ax.text(.97, .03, "near origin: " + ", ".join(g[~far].index), transform=ax.transAxes, ha="right", va="bottom", fontsize=4.4,
+                    color=GREY_TXT, bbox=dict(fc="white", ec="none", alpha=.8, pad=1))
+        save_svg(fig, name or f"ab_savings_scatter_{source.lower()}_{suffix}")
+        plt.show()
+    return d
