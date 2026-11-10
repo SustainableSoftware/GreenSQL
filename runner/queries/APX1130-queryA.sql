@@ -5,4 +5,4 @@ EXPLAIN ANALYZE SELECT
     l_extendedprice
 FROM lineitem
 WHERE l_shipmode <> 'SHIP'
-  OR l_shipmode <> 'RAIL';
+  AND l_shipmode <> 'RAIL';
