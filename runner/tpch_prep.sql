@@ -13,3 +13,6 @@ BEGIN
     RETURN 0.07;
 END;
 $$;
+
+-- Index supporting the APX1145 prefix-LIKE query (orders.o_clerk is char(15))
+CREATE INDEX IF NOT EXISTS idx_orders_clerk ON orders (o_clerk bpchar_pattern_ops);

@@ -8,6 +8,8 @@
 //     QUERY_FILTER=APX1090 ./query_runner
 //   Point to a different queries directory and log file:
 //     QUERY_DIR=/path/to/queries LOG_FILE=/tmp/q.log QUERY_FILTER=all ./query_runner
+//   Post start/end messages to a Sigless server (default 127.0.0.1:8000, channel CH1):
+//     SIGLESS_ADDR=192.168.50.101:8000 SIGLESS_CHANNEL=CH1 ./query_runner
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -831,7 +833,11 @@ static int pin_postgres_to_cpu(int cpu_affinity) {
 
     /* Get main postgres process PID and pin it; children will inherit affinity */
     n = snprintf(cmd, sizeof(cmd),
-                 "MAIN_PID=$(sudo -n pgrep -f '^/usr/lib/postgresql.*/bin/postgres -D' | head -1); "
+                 /* Pin the cluster that serves port 5432 (the one the runner queries), not just the lowest PID:
+                  * with several clusters installed, head -1 picks whichever started first (v18 here). */
+                 "VER=$(pg_lsclusters -h 2>/dev/null | awk '$3==5432{print $1; exit}'); "
+                 "if [ -n \"$VER\" ]; then MAIN_PID=$(sudo -n pgrep -f \"^/usr/lib/postgresql/$VER/bin/postgres -D\" | head -1); fi; "
+                 "if [ -z \"$MAIN_PID\" ]; then MAIN_PID=$(sudo -n pgrep -f '^/usr/lib/postgresql.*/bin/postgres -D' | head -1); fi; "
                  "if [ -z \"$MAIN_PID\" ]; then MAIN_PID=$(sudo -n pgrep -f 'postgres: ' | head -1); fi; "
                  "if [ -n \"$MAIN_PID\" ]; then sudo -n taskset -pc %d \"$MAIN_PID\"; fi",
                  cpu_affinity);
@@ -885,6 +891,22 @@ static int unpin_postgres(void) {
     return 0;
 }
 
+static const char *env_or_default(const char *name, const char *def) {
+    const char *v = getenv(name);
+    return (v && *v) ? v : def;
+}
+
+/* SIGLESS_ADDR / SIGLESS_CHANNEL end up in a shell command, so only allow plain characters */
+static int sigless_arg_ok(const char *s) {
+    for (; *s; s++) {
+        if (!((*s >= '0' && *s <= '9') || (*s >= 'A' && *s <= 'Z') || (*s >= 'a' && *s <= 'z') ||
+              *s == '.' || *s == ':' || *s == '_' || *s == '-')) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int main(void) {
     const char *query_dir = getenv("QUERY_DIR");
     if (!query_dir) query_dir = DEFAULT_QUERY_DIR;
@@ -892,8 +914,12 @@ int main(void) {
     const char *log_file = getenv("LOG_FILE");
     if (!log_file) log_file = DEFAULT_LOG_FILE;
 
-    const char *sigless_addr = DEFAULT_SIGLESS_ADDR;
-    const char *sigless_channel = DEFAULT_SIGLESS_CHANNEL;
+    const char *sigless_addr = env_or_default("SIGLESS_ADDR", DEFAULT_SIGLESS_ADDR);
+    const char *sigless_channel = env_or_default("SIGLESS_CHANNEL", DEFAULT_SIGLESS_CHANNEL);
+    if (!sigless_arg_ok(sigless_addr) || !sigless_arg_ok(sigless_channel)) {
+        fprintf(stderr, "Invalid SIGLESS_ADDR/SIGLESS_CHANNEL (allowed: letters, digits, . : _ -)\n");
+        return 1;
+    }
     const char *cpu_affinity_env = getenv("CPU_AFFINITY");
     const char *sudo_password = getenv("SUDO_PASSWORD");
     const char *runs_per_loop_env = getenv("RUNS_PER_LOOP");

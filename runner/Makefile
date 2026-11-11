@@ -28,6 +28,7 @@ TEMP_CONTROL_RAPL_EVENTS ?= power/energy-pkg/,power/energy-cores/,power/energy-g
 PLANNING_TIME_ENABLE ?= 1
 PLANNING_TIME_LOG_FILE ?= logs/planning_time.csv
 LOOPS ?= 1
+RUNS_PER_LOOP ?= 100
 CPU_AFFINITY ?= 0
 SINGLE_CORE_LOG_FILE ?= logs/query_timing_single_core.csv
 SINGLE_CORE_SAMPLE_DIR ?= logs/single_core_rapl_samples
@@ -64,7 +65,7 @@ run-single: compile
 #   make run-single-core QUERY=APX1090 CPU_AFFINITY=2
 run-single-core: compile
 	@$(SUDO_PRIME_CMD)
-	$(RUNNER_PREFIX) env QUERY_FILTER=$(QUERY) CPU_AFFINITY=$(CPU_AFFINITY) LOG_FILE="$(SINGLE_CORE_LOG_FILE)" RAPL_SAMPLE_ENABLE=1 RAPL_SAMPLE_DIR="$(SINGLE_CORE_SAMPLE_DIR)" RAPL_SAMPLE_INTERVAL_MS=$(SINGLE_CORE_RAPL_INTERVAL_MS) RAPL_SAMPLE_EVENTS="$(SINGLE_CORE_RAPL_EVENTS)" DETAILED_PERF_ENABLE=1 DETAILED_PERF_OUTPUT_DIR="$(SINGLE_CORE_DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(SINGLE_CORE_DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(SINGLE_CORE_DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
+	$(RUNNER_PREFIX) env LOOPS=$(LOOPS) RUNS_PER_LOOP=$(RUNS_PER_LOOP) QUERY_FILTER=$(QUERY) CPU_AFFINITY=$(CPU_AFFINITY) LOG_FILE="$(SINGLE_CORE_LOG_FILE)" RAPL_SAMPLE_ENABLE=1 RAPL_SAMPLE_DIR="$(SINGLE_CORE_SAMPLE_DIR)" RAPL_SAMPLE_INTERVAL_MS=$(SINGLE_CORE_RAPL_INTERVAL_MS) RAPL_SAMPLE_EVENTS="$(SINGLE_CORE_RAPL_EVENTS)" DETAILED_PERF_ENABLE=1 DETAILED_PERF_OUTPUT_DIR="$(SINGLE_CORE_DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(SINGLE_CORE_DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(SINGLE_CORE_DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
 
 # Run all queries with PERF stat enabled (per query execution output files)
 run-perf: compile
@@ -95,7 +96,7 @@ run-output-capture-single: compile
 # Log planning time from EXPLAIN ANALYZE for all runs in a single CSV
 run-planning-time: compile
 	@$(SUDO_PRIME_CMD)
-	$(RUNNER_PREFIX) env PLANNING_TIME_ENABLE=$(PLANNING_TIME_ENABLE) PLANNING_TIME_LOG_FILE="$(PLANNING_TIME_LOG_FILE)" ./$(TARGET)
+	$(RUNNER_PREFIX) env LOOPS=$(LOOPS) RUNS_PER_LOOP=$(RUNS_PER_LOOP) PLANNING_TIME_ENABLE=$(PLANNING_TIME_ENABLE) PLANNING_TIME_LOG_FILE="$(PLANNING_TIME_LOG_FILE)" ./$(TARGET)
 
 # Log planning time for a specific query filter
 # Usage:
@@ -103,12 +104,12 @@ run-planning-time: compile
 run-planning-time-single: compile
 	@if [ -z "$(QUERY)" ]; then echo "You must provide QUERY. Example: make run-planning-time-single QUERY=APX1090"; exit 1; fi
 	@$(SUDO_PRIME_CMD)
-	$(RUNNER_PREFIX) env QUERY_FILTER=$(QUERY) PLANNING_TIME_ENABLE=$(PLANNING_TIME_ENABLE) PLANNING_TIME_LOG_FILE="$(PLANNING_TIME_LOG_FILE)" ./$(TARGET)
+	$(RUNNER_PREFIX) env LOOPS=$(LOOPS) RUNS_PER_LOOP=$(RUNS_PER_LOOP) QUERY_FILTER=$(QUERY) PLANNING_TIME_ENABLE=$(PLANNING_TIME_ENABLE) PLANNING_TIME_LOG_FILE="$(PLANNING_TIME_LOG_FILE)" ./$(TARGET)
 
 # Detailed PERF run with interval sampling and turbostat temperature/frequency data
 run-perf-detailed: compile
 	@$(SUDO_PRIME_CMD)
-	$(RUNNER_PREFIX) env DETAILED_PERF_ENABLE=$(DETAILED_PERF_ENABLE) DETAILED_PERF_OUTPUT_DIR="$(DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
+	$(RUNNER_PREFIX) env LOOPS=$(LOOPS) RUNS_PER_LOOP=$(RUNS_PER_LOOP) DETAILED_PERF_ENABLE=$(DETAILED_PERF_ENABLE) DETAILED_PERF_OUTPUT_DIR="$(DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
 
 # Detailed PERF run for one query filter
 # Usage:
@@ -116,7 +117,7 @@ run-perf-detailed: compile
 run-perf-detailed-single: compile
 	@if [ -z "$(QUERY)" ]; then echo "You must provide QUERY. Example: make run-perf-detailed-single QUERY=APX1090"; exit 1; fi
 	@$(SUDO_PRIME_CMD)
-	$(RUNNER_PREFIX) env QUERY_FILTER=$(QUERY) DETAILED_PERF_ENABLE=$(DETAILED_PERF_ENABLE) DETAILED_PERF_OUTPUT_DIR="$(DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
+	$(RUNNER_PREFIX) env LOOPS=$(LOOPS) RUNS_PER_LOOP=$(RUNS_PER_LOOP) QUERY_FILTER=$(QUERY) DETAILED_PERF_ENABLE=$(DETAILED_PERF_ENABLE) DETAILED_PERF_OUTPUT_DIR="$(DETAILED_PERF_OUTPUT_DIR)" DETAILED_PERF_LOG_FILE="$(DETAILED_PERF_LOG_FILE)" DETAILED_PERF_INTERVAL_SEC=$(DETAILED_PERF_INTERVAL_SEC) ./$(TARGET)
 
 # Temperature-controlled run with 1 run per loop and cooldown between runs
 run-temp-controlled: compile
@@ -193,12 +194,16 @@ setup:
 	echo "Removing trailing delimiters from generated .tbl files..."; \
 	sed -i 's/|$$//' "$(TPCH_DBGEN_DIR)"/*.tbl
 	@set -e; \
+	echo "Making .tbl files readable by the postgres user (dbgen writes nation.tbl unreadable)..."; \
+	chmod a+r "$(TPCH_DBGEN_DIR)"/*.tbl; \
+	chmod a+rx "$(TPCH_DBGEN_DIR)"
+	@set -e; \
 	echo "Ensuring PostgreSQL database $(PGDATABASE) exists..."; \
 	sudo -u "$(PGUSER)" psql -tAc "SELECT 1 FROM pg_database WHERE datname='$(PGDATABASE)'" | grep -q 1 || \
 		sudo -u "$(PGUSER)" psql -c "CREATE DATABASE $(PGDATABASE);"
 	@set -e; \
 	echo "Applying schema from tpch_schema.sql..."; \
-	sudo -u "$(PGUSER)" psql -d "$(PGDATABASE)" -f "$(CURDIR)/tpch_schema.sql"
+	sudo -u "$(PGUSER)" psql -v ON_ERROR_STOP=1 -d "$(PGDATABASE)" -f "$(CURDIR)/tpch_schema.sql"
 	@set -e; \
 	echo "Creating load script for generated TPC-H tables..."; \
 	printf "%s\n" \
@@ -213,10 +218,10 @@ setup:
 	> "$(TPCH_DBGEN_DIR)/load_tpch.sql"
 	@set -e; \
 	echo "Loading generated data into $(PGDATABASE)..."; \
-	sudo -u "$(PGUSER)" psql -d "$(PGDATABASE)" -f "$(TPCH_DBGEN_DIR)/load_tpch.sql"
+	sudo -u "$(PGUSER)" psql -v ON_ERROR_STOP=1 -d "$(PGDATABASE)" -f "$(TPCH_DBGEN_DIR)/load_tpch.sql"
 	@set -e; \
 	echo "Applying post-load preparation from tpch_prep.sql..."; \
-	sudo -u "$(PGUSER)" psql -d "$(PGDATABASE)" -f "$(CURDIR)/tpch_prep.sql"
+	sudo -u "$(PGUSER)" psql -v ON_ERROR_STOP=1 -d "$(PGDATABASE)" -f "$(CURDIR)/tpch_prep.sql"
 	@echo "Setup completed successfully."
 #sudo mkdir /home/user01/workspace
 #cd /home/user01/workspace
