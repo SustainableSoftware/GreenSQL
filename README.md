@@ -1,6 +1,5 @@
 # GreenSQL
 
-
 ## Restore zipped files
 
 Some of the logs were too large to push to GitHub, so they are stored as zip files. Run the following commands from the root of the repository to unpack them:
@@ -18,6 +17,20 @@ unzip sigless.thinkpad.CH2-0.zip
 ```
 
 The first two commands restore the saved query outputs for each laptop. The last four restore the raw power readings that the Sigless logger recorded from the Siglent supply.
+
+## What is in the repository
+
+| File or folder | What it is |
+|---|---|
+| `query_runner.c`, `rapl.c`, `rapl.h` | The runner. It executes the queries and reads the RAPL energy counter. |
+| `Makefile` | Compiles the runner, sets up the database and has a target for each kind of run. |
+| `queries/` | The 22 query files, which are 11 pairs of A and B. |
+| `tpch_schema.sql`, `tpch_prep.sql` | The TPC-H schema, and the preparation that runs after loading (indexes, a helper table and a helper function). |
+| `post_to_sigless.sh` | Sends start and end messages to the Sigless logger. |
+| `temp_controlled_run.sh` | A small wrapper around the temperature-controlled make targets. |
+| `run_supplementary.sh` | Runs the supplementary measurements one after another. |
+| `query_timing.csv` | The main results file. Every normal run appends to it. |
+| `logs/` | Output of the supplementary runs. |
 
 ## Setting up a Machine
 
